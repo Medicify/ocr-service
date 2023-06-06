@@ -6,6 +6,7 @@ import requests
 import os
 from typing import Optional
 import mysql.connector
+import re
 
 load_dotenv()
 
@@ -52,8 +53,12 @@ def findDrugTitle(request : RecommendationPayload):
     score = 80 if request.score is None else int(request.score)
     for drug in drugs:
         similarity = fuzz.token_set_ratio(request.title.lower(), drug['title'].lower())
+        drug["title"] = re.split("[\d.]", drug['title'])[0]
+        print(drug)
         if(similarity > score):
             matches.append(drug)
+
+    
     responsePayload['response']['data'] = matches
     responsePayload['request'] = request
     return responsePayload
