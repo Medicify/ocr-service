@@ -54,7 +54,6 @@ def findDrugTitle(request : RecommendationPayload):
     for drug in drugs:
         similarity = fuzz.token_set_ratio(request.title.lower(), drug['title'].lower())
         drug["title"] = re.split("[\d.]", drug['title'])[0]
-        print(drug)
         if(similarity > score):
             matches.append(drug)
 
