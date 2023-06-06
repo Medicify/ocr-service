@@ -12,7 +12,7 @@ load_dotenv()
 
 DEBUG = os.environ.get("DEBUG")
 PORT = 5000 if os.environ.get("PORT") is None else int(os.environ.get("PORT"))
-DRUG_SERVICE_URL = os.environ.get("DRUG_SERVICE_URL");
+# DRUG_SERVICE_URL = os.environ.get("DRUG_SERVICE_URL")
 
 DB_HOST = os.environ.get("DB_HOST")
 DB_USER = os.environ.get("DB_USER")
