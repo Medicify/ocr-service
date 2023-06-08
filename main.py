@@ -28,9 +28,9 @@ ctx = mysql.connector.connect(user=DB_USER, password=DB_PASSWORD,
                               database=DB_DATABASE)
 
 cursor = ctx.cursor()
-app = FastAPI(docs_url="/api/recommendation/documentation",debug=DEBUG)
+app = FastAPI(docs_url="/api/ocr/documentation",debug=DEBUG)
 responsePayload = {
-    "service" : "recommendation service", 
+    "service" : "ocr service", 
     "status" : "success", 
     "request" : None, 
     "response" : {
@@ -40,12 +40,12 @@ responsePayload = {
 }
 
 
-class RecommendationPayload(BaseModel):
+class Payload(BaseModel):
     title: str
     score : Optional[int] = None
 
 @app.post("/api/ocr")
-def findDrugTitle(request : RecommendationPayload):
+def findDrugTitle(request : Payload):
     cursor.execute(select_query)
     columns = cursor.description 
     drugs = [{columns[index][0]:column for index, column in enumerate(value)} for value in cursor.fetchall()]
