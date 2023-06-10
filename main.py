@@ -59,7 +59,8 @@ def findDrugTitle(request : Payload):
         if(similarity > score):
             matches.append(drug)
 
-    
+    cursor.close()
+    ctx.close()   
     responsePayload['response']['data'] = matches
     responsePayload['request'] = request
     return responsePayload
