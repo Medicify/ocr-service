@@ -32,6 +32,7 @@ responsePayload = {
         "data" : None,
         "total" : None
     }
+    "message" : None
 }
 
 
@@ -62,6 +63,8 @@ def findDrugTitle(request : Payload):
     ctx.close()   
     responsePayload['response']['data'] = matches
     responsePayload['request'] = request
+    responsePayload["message"] = "success get drug by fuzzy logic"
+    responsePayload["response"]["total"] = len(matches) if len(matches) > 0 else None
     return responsePayload
 
 @app.on_event("startup")
