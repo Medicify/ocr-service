@@ -23,11 +23,7 @@ DB_DATABASE = os.environ.get("DB_DATABASE")
 
 
 select_query = "select * from drugs"
-ctx = mysql.connector.connect(user=DB_USER, password=DB_PASSWORD,
-                              host=DB_HOST,
-                              database=DB_DATABASE)
 
-cursor = ctx.cursor()
 app = FastAPI(docs_url="/api/ocr/documentation",debug=DEBUG)
 responsePayload = {
     "service" : "ocr service", 
@@ -39,6 +35,11 @@ responsePayload = {
     }
 }
 
+ctx = mysql.connector.connect(user=DB_USER, password=DB_PASSWORD,
+                              host=DB_HOST,
+                              database=DB_DATABASE)
+
+
 
 class Payload(BaseModel):
     title: str
@@ -46,6 +47,7 @@ class Payload(BaseModel):
 
 @app.post("/api/ocr")
 def findDrugTitle(request : Payload):
+    cursor = ctx.cursor()
     cursor.execute(select_query)
     columns = cursor.description 
     drugs = [{columns[index][0]:column for index, column in enumerate(value)} for value in cursor.fetchall()]
