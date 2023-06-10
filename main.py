@@ -53,8 +53,8 @@ def findDrugTitle(request : Payload):
     matches = []
     score = 80 if request.score is None else int(request.score)
     for drug in drugs:
-        similarity = fuzz.token_set_ratio(request.title.lower(), drug['title'].lower())
         drug["title"] = re.split("[\d.]", drug['title'])[0]
+        similarity = fuzz.token_set_ratio(request.title.lower(), drug['title'].lower())
         if(similarity > score):
             matches.append(drug)
 
