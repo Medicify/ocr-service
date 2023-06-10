@@ -31,7 +31,7 @@ responsePayload = {
     "response" : {
         "data" : None,
         "total" : None
-    }
+    },
     "message" : None
 }
 
