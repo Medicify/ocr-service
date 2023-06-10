@@ -13,7 +13,6 @@ load_dotenv()
 
 DEBUG = os.environ.get("DEBUG")
 PORT = 5000 if os.environ.get("PORT") is None else int(os.environ.get("PORT"))
-# DRUG_SERVICE_URL = os.environ.get("DRUG_SERVICE_URL")
 
 DB_HOST = os.environ.get("DB_HOST")
 DB_USER = os.environ.get("DB_USER")
@@ -35,9 +34,6 @@ responsePayload = {
     }
 }
 
-ctx = mysql.connector.connect(user=DB_USER, password=DB_PASSWORD,
-                              host=DB_HOST,
-                              database=DB_DATABASE)
 
 
 
@@ -47,6 +43,9 @@ class Payload(BaseModel):
 
 @app.post("/api/ocr")
 def findDrugTitle(request : Payload):
+    ctx = mysql.connector.connect(user=DB_USER, password=DB_PASSWORD,
+                              host=DB_HOST,
+                              database=DB_DATABASE)
     cursor = ctx.cursor()
     cursor.execute(select_query)
     columns = cursor.description 
