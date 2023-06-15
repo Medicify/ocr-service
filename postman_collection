@@ -1,0 +1,110 @@
+{
+	"info": {
+		"_postman_id": "4bea7a72-ed9a-49ac-93d3-c9a6936dbdd8",
+		"name": "OCR Service API Production",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get OCR BY fuzzy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('status code should be 200 (OK)', () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('response body should be an object', () => {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson).to.be.an('object');\r",
+							"});\r",
+							"\r",
+							"pm.test('service should be ocr service', () => {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.service).to.equal(\"ocr service\");\r",
+							"});\r",
+							"\r",
+							"pm.test('response data should be object', () => {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseJson.response.data).to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"pm.test('response body should have correct key and value', () => {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseJson).to.haveOwnProperty('service');\r",
+							"    pm.expect(responseJson).to.haveOwnProperty('status');\r",
+							"    pm.expect(responseJson).to.haveOwnProperty('message');\r",
+							"    pm.expect(responseJson).to.haveOwnProperty('request');\r",
+							"    pm.expect(responseJson).to.haveOwnProperty('response');\r",
+							"    pm.expect(responseJson.response).to.haveOwnProperty('total');\r",
+							"    pm.expect(responseJson.response).to.haveOwnProperty('data'); \r",
+							"});\r",
+							"\r",
+							"pm.test(\"status should return success\", () => {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.status).equals('success');\r",
+							"}) \r",
+							"\r",
+							"\r",
+							"pm.test(\"response data should have correct key\", () => {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.response.data[0]).to.haveOwnProperty('id');\r",
+							"    pm.expect(responseJson.response.data[0]).to.haveOwnProperty('image');\r",
+							"    pm.expect(responseJson.response.data[0]).to.haveOwnProperty('title');\r",
+							"    pm.expect(responseJson.response.data[0]).to.haveOwnProperty('product_url');\r",
+							"    pm.expect(responseJson.response.data[0]).to.haveOwnProperty('description');\r",
+							"    pm.expect(responseJson.response.data[0]).to.haveOwnProperty('indication');\r",
+							"    pm.expect(responseJson.response.data[0]).to.haveOwnProperty('dose');\r",
+							"    pm.expect(responseJson.response.data[0]).to.haveOwnProperty('compotition');\r",
+							"    pm.expect(responseJson.response.data[0]).to.haveOwnProperty('attention');\r",
+							"    pm.expect(responseJson.response.data[0]).to.haveOwnProperty('how_to_use');\r",
+							"    pm.expect(responseJson.response.data[0]).to.haveOwnProperty('side_effect');\r",
+							"    pm.expect(responseJson.response.data[0]).to.haveOwnProperty('product_class');\r",
+							"    pm.expect(responseJson.response.data[0]).to.haveOwnProperty('package');\r",
+							"    pm.expect(responseJson.response.data[0]).to.haveOwnProperty('manufactur');\r",
+							"    pm.expect(responseJson.response.data[0]).to.haveOwnProperty('bpom');\r",
+							"    pm.expect(responseJson.response.data[0]).to.haveOwnProperty('indication_contra');\r",
+							"}) \r",
+							"\r",
+							"pm.test(\"response total data should equal to response data length\", () => {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.response.total).to.equal(responseJson.response.data.length);\r",
+							"}) \r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\" : \"paratusin aw awsddwwwadasawd awdwa das wa \"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{host_production}}/api/ocr",
+					"protocol": "http",
+					"host": [
+						"{{host_production}}"
+					],
+					"path": [
+						"api",
+						"ocr"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
